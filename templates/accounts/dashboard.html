@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+<!-- Contenu -->
+{% block content %}
+
+<!-- Main Section Start -->
+<div class="container py-5">
+    <h2>Tableau de bord</h2>
+    <p>Bienvenue {{ user.username }}</p>
+</div>
+
+{% include 'includes/alerts.html' %}
+
+<!-- Main Section End -->
+
+{% endblock content %}

@@ -4,9 +4,14 @@ from accounts.models import UserProfile
 from vendors.forms import VendorForm
 from django.contrib import messages
 
+from accounts.utils import detect_user
+
 # Create your views here.
 def registerVendor(request):
-    if request.method == "POST":
+    if request.user.is_authenticated:
+        messages.warning(request, "Vous êtes déjà connectés.")
+        return redirect(detect_user(request.user))
+    elif request.method == "POST":
         form = UserForm(request.POST)
         v_form = VendorForm(request.POST, request.FILES)
         if form.is_valid() and v_form.is_valid():

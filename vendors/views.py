@@ -4,7 +4,7 @@ from accounts.models import UserProfile
 from vendors.forms import VendorForm
 from django.contrib import messages
 
-from accounts.utils import detect_user
+from accounts.utils import detect_user, send_verification_email
 
 # Create your views here.
 def registerVendor(request):
@@ -25,6 +25,10 @@ def registerVendor(request):
             vendor.user = user
             vendor.user_profile = UserProfile.objects.get(user=user)
             vendor.save()
+
+            #Send verification email
+            send_verification_email(request, user)
+
             messages.success(request, "Votre inscription est effectuée avec succès, veuillez attendre que l'admin valide votre inscription.")
             return redirect('register-vendor')
         else:
